@@ -80,10 +80,12 @@ public class EmployeePayrollController {
      *                           and we update the updateEmployeePayrollData with help of employeePayrollerService
      * @return
      */
-   @PutMapping("/update")
-    public ResponseEntity<ResponseDTO> updateEmployeePayrollData(@RequestBody EmployeePayrollDTO employeePayrollDTO){
+   @PutMapping("/update/{empId}")
+    public ResponseEntity<ResponseDTO> updateEmployeePayrollData(@PathVariable("empId")int empId,
+                                                                 @RequestBody EmployeePayrollDTO employeePayrollDTO){
        EmployeePayrollData employeePayrollData = null;
-       employeePayrollData=employeePayrollerService.updateEmployeePayrollData(employeePayrollDTO);
+       employeePayrollData=employeePayrollerService.updateEmployeePayrollData(empId, employeePayrollDTO);
+//       employeePayrollData=employeePayrollerService.updateEmployeePayrollData(employeePayrollDTO);
 //       employeePayrollData = new EmployeePayrollData(1,employeePayrollDTO);
        ResponseDTO responseDTO=new ResponseDTO("Update Employee Payroll Data Successfully",employeePayrollData);
 
