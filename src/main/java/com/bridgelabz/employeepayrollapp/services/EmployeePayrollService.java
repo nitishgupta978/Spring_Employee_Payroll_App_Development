@@ -53,6 +53,9 @@ public class EmployeePayrollService implements IEmployeePayrollerService{
         return employeePayrollData;
     }
 
+    /**
+     * delete the data of Employee payrollData with the help of empId and remove empId -1
+     */
     @Override
     public void deleteEmployeePayrollData(int empId) {
         employeePayrollDataList.remove(empId-1);
