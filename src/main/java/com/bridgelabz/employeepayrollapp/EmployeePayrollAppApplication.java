@@ -3,6 +3,7 @@ package com.bridgelabz.employeepayrollapp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -22,11 +23,17 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class EmployeePayrollAppApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EmployeePayrollAppApplication.class, args);
-		log.info("Employee payroll APP Started");
+		ApplicationContext context = SpringApplication.run(EmployeePayrollAppApplication.class,args);
+		//SpringApplication.run(EmployeePayrollAppApplication.class, args);
+		log.info("Employee payroll APP Started in { } Environment",context.getEnvironment().getProperty("environment"));
 
 		/**
+		 * log.in using purpose of when use application properties, dev,PROD for run configuration to display on console
+		 * like : environment=PROD
 		 * return Employee payroll APP Started when complete the run configuration
+		 *
+		 * Logging the environment from appropriate application property line Number 28
+		 *
 		 */
 	}
 	@Bean
@@ -40,6 +47,7 @@ public class EmployeePayrollAppApplication {
 		 * we create one method productApi and use Docket to connect our project between basePackage and  Swagger
 		 * when provide url on browser http://localhost:8080/swagger-ui.html#/
 		 */
+
 
 	}
 }
