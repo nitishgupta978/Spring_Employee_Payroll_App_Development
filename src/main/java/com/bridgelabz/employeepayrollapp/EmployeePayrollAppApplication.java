@@ -25,14 +25,17 @@ public class EmployeePayrollAppApplication {
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(EmployeePayrollAppApplication.class,args);
 		//SpringApplication.run(EmployeePayrollAppApplication.class, args);
-		log.info("Employee payroll APP Started in { } Environment",context.getEnvironment().getProperty("environment"));
+		//log.info("Employee Payroll App Started");
+		log.info("Employee payroll APP Started in {} Environment",context.getEnvironment().getProperty("environment"));
+		log.info("Employee Payroll DB User is {}",context.getEnvironment().getProperty("spring.datasource.username"));
 
 		/**
 		 * log.in using purpose of when use application properties, dev,PROD for run configuration to display on console
 		 * like : environment=PROD
-		 * return Employee payroll APP Started when complete the run configuration
+		 * return Employee payroll APP Started when complete the run configuration line number 27,28
 		 *
-		 * Logging the environment from appropriate application property line Number 28
+		 * Logging the environment from appropriate application property line Number 29
+		 * Step 3: Final DB Setup and Test and Log the Data Source User Name line number is 30
 		 *
 		 */
 	}
