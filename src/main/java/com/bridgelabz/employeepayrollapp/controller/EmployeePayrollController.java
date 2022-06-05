@@ -3,13 +3,13 @@ package com.bridgelabz.employeepayrollapp.controller;
 import com.bridgelabz.employeepayrollapp.dto.EmployeePayrollDTO;
 import com.bridgelabz.employeepayrollapp.dto.EmployeePayrollData;
 import com.bridgelabz.employeepayrollapp.dto.ResponseDTO;
-import com.bridgelabz.employeepayrollapp.repository.EmployeeRepository;
-import com.bridgelabz.employeepayrollapp.services.IEmployeePayrollerService;
+import com.bridgelabz.employeepayrollapp.services.IEEmployeePayrollService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class EmployeePayrollController {
     @Autowired
-   private IEmployeePayrollerService employeePayrollerService;
+   private IEEmployeePayrollService employeePayrollerService;
 
     /**
      * we add Service and apply this  class in this class main Controller with each Method
@@ -30,29 +30,29 @@ public class EmployeePayrollController {
      */
     @RequestMapping(value={"","/","/get"})
     public ResponseEntity<ResponseDTO>getEmployeePayrollData(){
-        List<EmployeePayrollData> employeePayrollDataList=null;
-        employeePayrollDataList = employeePayrollerService.getEmployeePayrollData();
+        List<EmployeePayrollData> empDataList=null;
+        empDataList = employeePayrollerService.getEmployeePayrollData();
 //    EmployeePayrollData employeePayrollData =null;
 //    employeePayrollData = new EmployeePayrollData(1,new EmployeePayrollDTO("John",300000));
-    ResponseDTO responseDTO = new ResponseDTO("Get Call Successful",employeePayrollDataList);
+    ResponseDTO responseDTO = new ResponseDTO("Get Call Successful",empDataList);
     return new ResponseEntity<ResponseDTO>(responseDTO,HttpStatus.OK);
 
     }
 
     /**
      *
-     * @param empId we get the data of DTO and Model class with the help of GetMapping annotation
+     * @param employeeId we get the data of DTO and Model class with the help of GetMapping annotation
      *              and here use Service class and replace the
      *              // this hyphen to show I commit when we not use Service class where you got
      *              this meaning is same
      * @return
      */
     @GetMapping("/get/{empId}")
-    public ResponseEntity<ResponseDTO>getEmployeePayrollData(@PathVariable("empId") int empId){
-        EmployeePayrollData employeePayrollData =null;
-        employeePayrollData= employeePayrollerService.getEmployeePayrollDataById(empId);
+    public ResponseEntity<ResponseDTO>getEmployeePayrollData(@PathVariable("employeeId") int employeeId){
+        EmployeePayrollData empData =null;
+        empData= employeePayrollerService.getEmployeePayrollDataById(employeeId);
 //        employeePayrollData = new EmployeePayrollData(1,new EmployeePayrollDTO("John",3000));
-        ResponseDTO responseDTO = new ResponseDTO("Get Call For ID Successful",employeePayrollData);
+        ResponseDTO responseDTO = new ResponseDTO("Get Call For ID Successful",empData);
         return new ResponseEntity<ResponseDTO>(responseDTO,HttpStatus.OK);
     }
 
@@ -63,44 +63,44 @@ public class EmployeePayrollController {
      * @return
      */
    @PostMapping("/create")
-   public ResponseEntity<String> addEmployeePayrollData(@RequestBody EmployeePayrollDTO employeePayrollDTO){
-            EmployeePayrollData employeePayrollData=null;
-            employeePayrollData=employeePayrollerService.createEmployeePayrollData(employeePayrollDTO);
+   public ResponseEntity<ResponseDTO> createEmployeePayrollData( @Valid @RequestBody EmployeePayrollDTO employeePayrollDTO){
+            EmployeePayrollData empData=null;
+       empData=employeePayrollerService.createEmployeePayrollData(employeePayrollDTO);
 //            employeePayrollData = new EmployeePayrollData(1,employeePayrollDTO);
-            ResponseDTO responseDTO= new ResponseDTO("Create Employee Payroll Data Successfull:",employeePayrollData);
+            ResponseDTO responseDTO= new ResponseDTO("Create Employee Payroll Data Successfull:",empData);
 //        employeeRepository.save(employeeDetails);
 //        return "Employee Details Added SuccessFully";
-      return new ResponseEntity<String>("Employee Details Added SuccessFully:"+employeePayrollDTO,HttpStatus.OK);
+      return new ResponseEntity<ResponseDTO>(responseDTO,HttpStatus.OK);
    }
 
-    /**
+    /** add @valid annotation line no 67 for check purpose and chage String to ResponseDTO in matrix< >
      *
      * @param employeePayrollDTO We update the data of employeePayrollDTO in MySQL or Webpages with the help of @PutMapping Annotation
      *                        and by Declare path is /update and use DTO ,Model and service class
      *                           and we update the updateEmployeePayrollData with help of employeePayrollerService
      * @return
      */
+   // @RequestMapping(value = "/update/{contentId:.*}", method = RequestMethod.POST)
    @PutMapping("/update/{empId}")
-    public ResponseEntity<ResponseDTO> updateEmployeePayrollData(@PathVariable("empId")int empId,
+    public ResponseEntity<ResponseDTO> updateEmployeePayrollData(@PathVariable("employeeId")int employeeId,
                                                                  @RequestBody EmployeePayrollDTO employeePayrollDTO){
-       EmployeePayrollData employeePayrollData = null;
-       employeePayrollData=employeePayrollerService.updateEmployeePayrollData(empId, employeePayrollDTO);
+       EmployeePayrollData empData = null;
+       empData=employeePayrollerService.updateEmployeePayrollData(employeeId, employeePayrollDTO);
 //       employeePayrollData=employeePayrollerService.updateEmployeePayrollData(employeePayrollDTO);
 //       employeePayrollData = new EmployeePayrollData(1,employeePayrollDTO);
-       ResponseDTO responseDTO=new ResponseDTO("Update Employee Payroll Data Successfully",employeePayrollData);
-
+       ResponseDTO responseDTO=new ResponseDTO("Update Employee Payroll Data Successfully",empData);
         return new ResponseEntity<ResponseDTO>(responseDTO,HttpStatus.OK);
    }
     /**
      *
-     * @param empId We delete the data of this ID of employeePayrollDTO "empId.."in MySQL or Webpages  using by @DeleteMapping @Annotation
+     * @param employeeId We delete the data of this ID of employeePayrollDTO "empId.."in MySQL or Webpages  using by @DeleteMapping @Annotation
      *              and we also use ResponseDTO class
      * @return
      */
-   @DeleteMapping("/delete{empId}")
-    public ResponseEntity<ResponseDTO > deleteEmployeePayrollData(@PathVariable("empId") int empId){
-       employeePayrollerService.deleteEmployeePayrollData(empId);
-       ResponseDTO responseDTO = new ResponseDTO("Delete successfully","Deleted id:"+empId);
+   @DeleteMapping("/delete/{empId}")
+    public ResponseEntity<ResponseDTO > deleteEmployeePayrollData(@PathVariable("employeeId") int employeeId){
+       employeePayrollerService.deleteEmployeePayrollData(employeeId);
+       ResponseDTO responseDTO = new ResponseDTO("Delete successfully","Deleted id:"+employeeId);
         return  new ResponseEntity<ResponseDTO>(responseDTO,HttpStatus.OK);
    }
 }
