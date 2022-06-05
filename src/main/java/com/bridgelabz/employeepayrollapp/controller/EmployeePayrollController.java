@@ -78,7 +78,7 @@ public class EmployeePayrollController {
      * @param employeePayrollDTO We update the data of employeePayrollDTO in MySQL or Webpages with the help of @PutMapping Annotation
      *                        and by Declare path is /update and use DTO ,Model and service class
      *                           and we update the updateEmployeePayrollData with help of employeePayrollerService
-     * @return
+     * @return ResponseDTO class
      */
    // @RequestMapping(value = "/update/{contentId:.*}", method = RequestMethod.POST)
    @PutMapping("/update/{employeeId}")
@@ -103,4 +103,9 @@ public class EmployeePayrollController {
        ResponseDTO responseDTO = new ResponseDTO("Delete successfully","Deleted id:"+employeeId);
         return  new ResponseEntity<ResponseDTO>(responseDTO,HttpStatus.OK);
    }
-}
+/**
+ * method delete by EmployeeId
+ * return remaining data employeeId
+ */
+
+ }
