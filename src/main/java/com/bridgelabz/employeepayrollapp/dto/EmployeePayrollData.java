@@ -1,20 +1,21 @@
 package com.bridgelabz.employeepayrollapp.dto;
 
-public class EmployeePayrollData {
+import lombok.Data;
+
+import java.util.List;
+
+public @Data class EmployeePayrollData {
+    /**
+     * using @Data Annotation for,Use of @Data Lombok annotation
+     */
     private int employeeId;
     private String name;
     private long salary;
-
-
-    public EmployeePayrollData() {
-
-    }
-
-    public  EmployeePayrollData(int employeeId, EmployeePayrollDTO employeePayrollDTO) {
-        this.employeeId = employeeId;
-        this.name = employeePayrollDTO.name;
-        this.salary = employeePayrollDTO.salary;
-    }
+    private String gender;
+    private String startDate;
+    private String note;
+    private String profilePic;
+    private List<String> department;
 
     public int getEmployeeId() {
         return employeeId;
@@ -39,4 +40,61 @@ public class EmployeePayrollData {
     public void setSalary(long salary) {
         this.salary = salary;
     }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
+    }
+
+    public List<String> getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(List<String> department) {
+        this.department = department;
+    }
+
+    public EmployeePayrollData() {}
+
+
+    public  EmployeePayrollData(int employeeId, EmployeePayrollDTO employeePayrollDTO) {
+        this.employeeId = employeeId;
+        this.name = employeePayrollDTO.name;
+        this.salary = employeePayrollDTO.salary;
+        this.gender = employeePayrollDTO.gender;
+        this.startDate = employeePayrollDTO.startDate;
+        this.note = employeePayrollDTO.note;
+        this.profilePic = employeePayrollDTO.profilePic;
+        this.department = employeePayrollDTO.department;
+
+
+    }
+
 }
