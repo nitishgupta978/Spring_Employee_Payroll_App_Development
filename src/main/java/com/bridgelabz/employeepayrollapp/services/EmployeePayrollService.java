@@ -32,7 +32,7 @@ public class EmployeePayrollService implements IEEmployeePayrollService {
     @Override
     public EmployeePayrollData createEmployeePayrollData(EmployeePayrollDTO employeePayrollDTO) {
         EmployeePayrollData empData=null;
-        empData=new EmployeePayrollData(employeePayrollDataList.size()+1,employeePayrollDTO);
+        empData=new EmployeePayrollData(employeePayrollDTO);
         employeePayrollDataList.add(empData);
         return empData;
     }

@@ -31,23 +31,22 @@ public @Data class EmployeePayrollData {
     @Column(name = "department")
     private List<String> department;
 
-    public EmployeePayrollData() {}
-    public EmployeePayrollData(EmployeePayrollDTO employeePayrollDTO){
+    public EmployeePayrollData() { }
+
+//    public EmployeePayrollData(EmployeePayrollDTO employeePayrollDTO){
+//        this.updateEmployeePayrollData(employeePayrollDTO);
+//
+//    }
+//
+//    public EmployeePayrollData(int employeeId, EmployeePayrollDTO employeePayrollDTO) {
+//
+//    }
+public EmployeePayrollData(  EmployeePayrollDTO employeePayrollDTO){
+
         this.updateEmployeePayrollData(employeePayrollDTO);
+}
 
-    }
-
-    public EmployeePayrollData(int i, EmployeePayrollDTO employeePayrollDTO) {
-    }
-
-//    public EmployeePayrollData(int i, EmployeePayrollDTO employeePayrollDTO) {
-//    }
-
-//    public EmployeePayrollData(int i, EmployeePayrollDTO employeePayrollDTO) {
-//    }
-
-    public void  updateEmployeePayrollData(EmployeePayrollDTO employeePayrollDTO) {
-
+    public void updateEmployeePayrollData( EmployeePayrollDTO employeePayrollDTO) {
         this.name = employeePayrollDTO.name;
         this.salary = employeePayrollDTO.salary;
         this.gender = employeePayrollDTO.gender;
@@ -55,8 +54,5 @@ public @Data class EmployeePayrollData {
         this.note = employeePayrollDTO.note;
         this.profilePic = employeePayrollDTO.profilePic;
         this.department = employeePayrollDTO.department;
-
-
     }
-
 }

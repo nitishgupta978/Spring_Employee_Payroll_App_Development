@@ -32,15 +32,16 @@ public class EmployeePayrollExceptionHandler {
     }
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ResponseDTO> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception){
-        log.error("Invalid  profile Format ",exception);
-        ResponseDTO responseDTO= new ResponseDTO(message,"Should have profile pic in string jpg ");
+        List<ObjectError>errorList = exception.getBindingResult().getAllErrors();
+        List<String>errMesg = errorList.stream().map(objectError -> objectError.getDefaultMessage()).collect(Collectors.toList());
+        ResponseDTO responseDTO= new ResponseDTO(message,errMesg);
         return  new ResponseEntity<>(responseDTO,HttpStatus.BAD_REQUEST);
 
     }
     @ExceptionHandler(EmployeePayrollException.class)
     public  ResponseEntity<ResponseDTO> handleEmployeePayrollException(EmployeePayrollException exception){
-        log.error("Invalid Department Format!",exception);
-        ResponseDTO responseDTO= new ResponseDTO(message,"Should have not empty leave Department ");
+
+        ResponseDTO responseDTO= new ResponseDTO(message,exception.getMessage());
         return new ResponseEntity<>(responseDTO,HttpStatus.BAD_REQUEST);
     }
 
