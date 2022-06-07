@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public @ToString class EmployeePayrollDTO {
@@ -26,9 +27,12 @@ public @ToString class EmployeePayrollDTO {
     public long salary;
     @Pattern(regexp = "male|female",message = "Gender should be male or female")
     public  String gender;
-    @JsonFormat(pattern ="dd MMM yyyy")
-//    @NotNull(message = "Start date should be not Empty")
-//    @PastOrPresent(message = "startDate should be past or today date")
+
+    //@JsonFormat(pattern ="dd MMM yyyy")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS][.SS][.S]")
+//    private LocalDateTime updatedTime;
+    @NotNull(message = "Start date should be not Empty")
+    @PastOrPresent(message = "startDate should be past or today date")
     public LocalDate startDate;
 
     @NotBlank(message = "Note cannot be Empty")

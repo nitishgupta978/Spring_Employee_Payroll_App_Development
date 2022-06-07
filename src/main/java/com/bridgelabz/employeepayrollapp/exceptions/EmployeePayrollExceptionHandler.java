@@ -26,7 +26,7 @@ public class EmployeePayrollExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException .class)
     public ResponseEntity<ResponseDTO> handleHttpMessagesNotReadableException (HttpMessageNotReadableException exception){
         log.error("Invalid Data Format", exception);
-       ResponseDTO responseDTO = new ResponseDTO(message,"Should have date in the format dd MMM yyyy");
+       ResponseDTO responseDTO = new ResponseDTO(message,"Should have date in the format dd MMM yyyy or yyyy-MM-dd'T'HH:mm:ss[.SSS][.SS][.S]");
        return  new ResponseEntity<>(responseDTO,HttpStatus.BAD_REQUEST);
 
     }
