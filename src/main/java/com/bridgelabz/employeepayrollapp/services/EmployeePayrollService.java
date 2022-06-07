@@ -3,13 +3,19 @@ package com.bridgelabz.employeepayrollapp.services;
 import com.bridgelabz.employeepayrollapp.dto.EmployeePayrollDTO;
 import com.bridgelabz.employeepayrollapp.model.EmployeePayrollData;
 import com.bridgelabz.employeepayrollapp.exceptions.EmployeePayrollException;
+import com.bridgelabz.employeepayrollapp.repository.EmployeeRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class EmployeePayrollService implements IEEmployeePayrollService {
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     private List<EmployeePayrollData>employeePayrollDataList =new ArrayList<>();
     public List<EmployeePayrollData> getEmployeePayrollData() {
@@ -20,7 +26,8 @@ public class EmployeePayrollService implements IEEmployeePayrollService {
 
     @Override
     public EmployeePayrollData getEmployeePayrollDataById(int employeeId) {
-        return  employeePayrollDataList.stream().filter(employeePayrollData -> employeePayrollData.getEmployeeId()==employeeId)
+        return  employeePayrollDataList.stream().filter(employeePayrollData ->
+                        employeePayrollData.getEmployeeId()==employeeId)
                 .findFirst().orElseThrow(() ->new EmployeePayrollException("Employee not found"));
 /**
  * Using stream api method to get Employee with help of getEmployeePayrollDataById method
@@ -34,16 +41,9 @@ public class EmployeePayrollService implements IEEmployeePayrollService {
         EmployeePayrollData empData=null;
         empData=new EmployeePayrollData(employeePayrollDTO);
         employeePayrollDataList.add(empData);
-        return empData;
+        log.debug("Employee Data"+empData.toString());
+        return employeeRepository.save(empData) ;
     }
-
-
-
-//    @Override
-//    public EmployeePayrollData updateEmployeePayrollData(EmployeePayrollDTO employeePayrollDTO) {
-//        return null;
-//    }
-
 
     public EmployeePayrollData updateEmployeePayrollData(int employeeId,EmployeePayrollDTO employeePayrollDTO) {
         EmployeePayrollData empData=this.getEmployeePayrollDataById(employeeId);
@@ -51,7 +51,6 @@ public class EmployeePayrollService implements IEEmployeePayrollService {
         empData.setName(employeePayrollDTO.name);
         empData.setSalary(employeePayrollDTO.salary);
         employeePayrollDataList.set(employeeId-1,empData);
-
         return empData;
     }
 

@@ -33,14 +33,6 @@ public @Data class EmployeePayrollData {
 
     public EmployeePayrollData() { }
 
-//    public EmployeePayrollData(EmployeePayrollDTO employeePayrollDTO){
-//        this.updateEmployeePayrollData(employeePayrollDTO);
-//
-//    }
-//
-//    public EmployeePayrollData(int employeeId, EmployeePayrollDTO employeePayrollDTO) {
-//
-//    }
 public EmployeePayrollData(  EmployeePayrollDTO employeePayrollDTO){
 
         this.updateEmployeePayrollData(employeePayrollDTO);
