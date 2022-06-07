@@ -17,8 +17,7 @@ public class EmployeePayrollService implements IEEmployeePayrollService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    private List<EmployeePayrollData>employeePayrollDataList ;
-
+//   private List<EmployeePayrollData>employeePayrollDataList ;
     public List<EmployeePayrollData> getEmployeePayrollData() {
         return employeeRepository.findAll();
        // employeePayrollDataList.add(new EmployeePayrollData(1,new EmployeePayrollDTO("John",5000)));
@@ -39,10 +38,22 @@ public class EmployeePayrollService implements IEEmployeePayrollService {
     }
 
     @Override
+    public List<EmployeePayrollData> getEmployeeByDepartment(String department) {
+        return employeeRepository.findEmployeeByDepartment(department);
+
+        /**
+         * Step 3: Implement in Services
+         * getEmployeesByDepartment method
+         * and call the repository method
+         * findEmployeesByDepartment
+         */
+    }
+
+    @Override
     public EmployeePayrollData createEmployeePayrollData(EmployeePayrollDTO employeePayrollDTO) {
         EmployeePayrollData empData=null;
         empData=new EmployeePayrollData(employeePayrollDTO);
-      //  employeePayrollDataList.add(empData);
+        //  employeePayrollDataList.add(empData);
         log.debug("Employee Data"+empData.toString());
         return employeeRepository.save(empData) ;
     }
@@ -57,7 +68,7 @@ public class EmployeePayrollService implements IEEmployeePayrollService {
     @Override
     public void deleteEmployeePayrollData(int employeeId) {
         EmployeePayrollData employeePayrollData=this.getEmployeePayrollDataById(employeeId);
-        employeePayrollDataList.remove(employeeId-1);
+        employeeRepository.delete(employeePayrollData);
 
     }
 }

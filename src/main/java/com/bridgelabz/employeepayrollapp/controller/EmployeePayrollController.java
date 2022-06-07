@@ -28,7 +28,7 @@ public class EmployeePayrollController {
      * and I also use ResponseDTO and Model class
      * and replace the employeePayrollData to employeePayrollDataList
      *
-     * @return
+     * @return getEmployeePayrollData
      */
     @RequestMapping(value={"","/","/get"})
     public ResponseEntity<ResponseDTO>getEmployeePayrollData(){
@@ -38,14 +38,13 @@ public class EmployeePayrollController {
     return new ResponseEntity<ResponseDTO>(responseDTO,HttpStatus.OK);
 
     }
-
     /**
      *
      * @param employeeId we get the data of DTO and Model class with the help of GetMapping annotation
      *              and here use Service class and replace the
      *              // this hyphen to show I commit when we not use Service class where you got
      *              this meaning is same
-     * @return
+     * @return getEmployeePayrollDataById
      */
     @GetMapping("/get/{empId}")
     public ResponseEntity<ResponseDTO>getEmployeePayrollData(@PathVariable("empId") int employeeId){
@@ -53,6 +52,20 @@ public class EmployeePayrollController {
         empData= employeePayrollerService.getEmployeePayrollDataById(employeeId);
         ResponseDTO responseDTO = new ResponseDTO("Get Call For ID Successful",empData);
         return new ResponseEntity<ResponseDTO>(responseDTO,HttpStatus.OK);
+    }
+
+    /**
+     * findEmployeesByDepartment
+     * @param department
+     * @return  getEmployeePayrollDataByDepartment
+     */
+    @GetMapping("/department/{department}")
+    public ResponseEntity<ResponseDTO>getEmployeePayrollDataByDepartment(@PathVariable("department") String department){
+        List<EmployeePayrollData>employeePayrollDataList=null;
+        employeePayrollDataList=employeePayrollerService.getEmployeeByDepartment(department);
+        ResponseDTO responseDTO = new ResponseDTO("Get Call For Department Successfull",employeePayrollDataList);
+        return new ResponseEntity<>(responseDTO,HttpStatus.OK);
+
     }
 
     /**
