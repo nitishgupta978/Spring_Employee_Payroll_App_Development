@@ -1,9 +1,8 @@
 package com.bridgelabz.employeepayrollapp.services;
 
 import com.bridgelabz.employeepayrollapp.dto.EmployeePayrollDTO;
-import com.bridgelabz.employeepayrollapp.dto.EmployeePayrollData;
+import com.bridgelabz.employeepayrollapp.model.EmployeePayrollData;
 import com.bridgelabz.employeepayrollapp.exceptions.EmployeePayrollException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,7 +10,6 @@ import java.util.List;
 
 @Service
 public class EmployeePayrollService implements IEEmployeePayrollService {
-//    @Autowired
 
     private List<EmployeePayrollData>employeePayrollDataList =new ArrayList<>();
     public List<EmployeePayrollData> getEmployeePayrollData() {
@@ -22,9 +20,6 @@ public class EmployeePayrollService implements IEEmployeePayrollService {
 
     @Override
     public EmployeePayrollData getEmployeePayrollDataById(int employeeId) {
-//        EmployeePayrollData employeePayrollData=null;
-//        employeePayrollData = new EmployeePayrollData(1,new EmployeePayrollDTO("Nitish",50000));
-        //return employeePayrollDataList.get(employeeId-1);
         return  employeePayrollDataList.stream().filter(employeePayrollData -> employeePayrollData.getEmployeeId()==employeeId)
                 .findFirst().orElseThrow(() ->new EmployeePayrollException("Employee not found"));
 /**
